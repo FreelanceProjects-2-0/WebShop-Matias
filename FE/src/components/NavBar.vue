@@ -2,19 +2,19 @@
   <v-container fluid class="pa-0 pa-md-4 px-md-8">
     <v-container class="pa-0">
       <v-row no-gutters class="py-md-0 py-5 pt-10 pb-md-10" align="center" justify="space-between">
-        <v-col cols="6" md="auto" class="mr-0 mr-md-6 pa-0 d-flex flex-row">
+        <v-col cols="3" md="auto" class="mr-0 mr-md-6 pa-0 d-flex flex-row ml-10">
           <v-img width="5vw" src="@/assets/placeholder.jpg"></v-img>
         </v-col>
         <v-col class="ma-0 px-0 pb-0 pt-2" v-if="!$vuetify.breakpoint.smAndDown">
           <div class="d-flex justify-space-between align-center ml-3">
             <h1>Webshop</h1>
             <div class="d-flex ml-3">
-              <v-btn :x-large="$vuetify.breakpoint.mdAndUp" tile text depressed :to="{ name: 'Home' }" class="black--text" exact-path>Forside</v-btn>
-              <v-btn :x-large="$vuetify.breakpoint.mdAndUp" tile text depressed :to="{ name: 'Products' }" class="black--text" exact-path>Products</v-btn>
+              <v-btn :x-large="$vuetify.breakpoint.mdAndUp" tile rounded text depressed :to="{ name: 'Home' }" class="black--text" exact-path>Forside</v-btn>
+              <v-btn :x-large="$vuetify.breakpoint.mdAndUp" tile rounded text depressed :to="{ name: 'Products' }" class="black--text" exact-path>Products</v-btn>
             </div>
             <div class="ml-auto d-flex">
-              <div v-if="cartItems.length">
-                <v-btn large icon depressed @click="$store.commit('setCartOpen', true)">
+              <div v-if="!cartItems.length">
+                <v-btn large icon depressed @click="$store.commit('setCartState', true)">
                   <v-icon color="black font-weight-bold">mdi-cart-outline</v-icon>
                 </v-btn>
               </div>
@@ -31,6 +31,33 @@
                 </v-card>
               </v-menu>
             </div>
+          </div>
+          <v-divider />
+          <v-divider />
+        </v-col>
+        <v-col cols="8" v-else class="text-right pr-8">
+          <div class="d-flex justify-space-between align-center ml-3">
+            <h1>Webshop</h1>
+            <v-menu transition="slide-y-transition" offset-y bottom>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn large v-bind="attrs" v-on="on" icon><v-icon large color="black">mdi-menu</v-icon></v-btn>
+              </template>
+              <v-card>
+                <v-list>
+                  <v-list-item :to="{ name: 'Home' }" exact>
+                    <v-list-item-title>Forside</v-list-item-title>
+                  </v-list-item>
+                  <v-list-item :to="{ name: 'Products' }" exact>
+                    <v-list-item-title>Products</v-list-item-title>
+                  </v-list-item>
+                  <v-list-item v-if="!cartItems.length" @click="$store.commit('setCartState', true)">
+                    <v-list-item-title>Cart</v-list-item-title>
+                  </v-list-item>
+                </v-list>
+                <v-divider></v-divider>
+                <user-menu class="mt-2" @show-login="showLoginDialog = true" @show-password-change="showPasswordEditDialog = true" />
+              </v-card>
+            </v-menu>
           </div>
           <v-divider />
           <v-divider />
