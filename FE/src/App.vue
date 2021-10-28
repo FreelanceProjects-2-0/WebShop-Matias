@@ -24,8 +24,8 @@ export default {
     ...mapState({
       snackbar: (state) => state.globalSnackbar,
     }),
-    components: { NavBar },
   },
+  components: { NavBar },
 
   data: () => ({
     //
