@@ -1,12 +1,12 @@
 <template>
-  <v-container>
+  <v-container fluid>
     <h4>{{ text }}</h4>
   </v-container>
 </template>
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: 'HomePage',
 
   data: () => ({
     text:

@@ -1,15 +1,15 @@
 <template>
-    <productsComponent />
+  <productsComponent />
 </template>
 
 <script>
-import productsComponent from "../components/products";
+import productsComponent from '@/components/Products';
 
 export default {
-    name: "productsView",
-    components: {
-        productsComponent,
-    },
+  name: 'Products',
+  components: {
+    productsComponent,
+  },
 };
 </script>
 

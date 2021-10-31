@@ -1,27 +1,25 @@
 <template>
-  <v-container fluid class="pa-0 pa-md-4 px-md-8">
+  <v-container fluid class="pa-0 px-md-4">
     <v-container class="pa-0">
       <v-row no-gutters class="py-md-0 py-5 pt-10 pb-md-10" align="center" justify="space-between">
-        <v-col cols="3" md="auto" class="mr-0 mr-md-6 pa-0 d-flex flex-row ml-10">
-          <v-img width="5vw" src="@/assets/placeholder.jpg"></v-img>
-        </v-col>
-        <v-col class="ma-0 px-0 pb-0 pt-2" v-if="!$vuetify.breakpoint.smAndDown">
+        <v-col class="ma-0 pb-0 pt-2" v-if="!$vuetify.breakpoint.xs">
           <div class="d-flex justify-space-between align-center ml-3">
-            <h1>Webshop</h1>
+            <h1 class="text-xl-h3">Webshop</h1>
             <div class="d-flex ml-3">
-              <v-btn :x-large="$vuetify.breakpoint.mdAndUp" tile rounded text depressed :to="{ name: 'Home' }" class="black--text" exact-path>Forside</v-btn>
-              <v-btn :x-large="$vuetify.breakpoint.mdAndUp" tile rounded text depressed :to="{ name: 'Products' }" class="black--text" exact-path>Products</v-btn>
+              <v-btn x-large tile text depressed :to="{ name: 'Home' }" class="black--text text-xl-h5 font-weight-medium" exact-path>Forside</v-btn>
+              <v-btn x-large tile text depressed :to="{ name: 'Products' }" class="black--text text-xl-h5 font-weight-medium" exact-path>Products</v-btn>
             </div>
             <div class="ml-auto d-flex">
               <div v-if="!cartItems.length">
-                <v-btn large icon depressed @click="$store.commit('setCartState', true)">
-                  <v-icon color="black font-weight-bold">mdi-cart-outline</v-icon>
+                <v-btn x-large icon depressed @click="$store.commit('setCartState', true)">
+                  <v-icon :size="iconSizing() == true ? '50px' : '30'" color="black font-weight-bold">mdi-cart-outline</v-icon>
                 </v-btn>
               </div>
               <v-menu offset-y bottom left>
                 <template v-slot:activator="{ on, attrs }">
-                  <v-btn large title="Info" icon v-bind="attrs" v-on="on" :color="user ? 'primary' : 'secondary'">
-                    <v-icon>mdi-account-circle</v-icon>
+                  <!-- :color="user ? 'primary' : 'secondary'" -->
+                  <v-btn x-large title="Info" icon v-bind="attrs" v-on="on">
+                    <v-icon :size="iconSizing() == true ? '50px' : '30'">mdi-account-circle</v-icon>
                   </v-btn>
                 </template>
                 <v-card>
@@ -35,7 +33,7 @@
           <v-divider />
           <v-divider />
         </v-col>
-        <v-col cols="8" v-else class="text-right pr-8">
+        <v-col v-else class="text-right">
           <div class="d-flex justify-space-between align-center ml-3">
             <h1>Webshop</h1>
             <v-menu transition="slide-y-transition" offset-y bottom>
@@ -76,7 +74,12 @@ export default {
   computed: {
     ...mapGetters(['cartItems']),
   },
-  methods: {},
+  methods: {
+    iconSizing() {
+      // if (this.$vuetify.breakpoint.xl) return true;
+      return this.$vuetify.breakpoint.xl;
+    },
+  },
 };
 </script>
 
