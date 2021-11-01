@@ -26,17 +26,6 @@
         </v-card>
       </v-col>
     </v-row>
-
-    <!-- <v-col>
-      <div v-for="(item, ProductId) in dummyData" :key="ProductId">
-        <v-card height="25vh" class="mb-4">
-          <v-card-title>
-            {{ item.ProductTitle }}
-          </v-card-title>
-        </v-card>
-      </div>
-    </v-col> -->
-    <!-- <v-data-table :items="dummyData" disable-pagination hide-default-footer :headers="headersForDummyData"> </v-data-table> -->
   </v-container>
 </template>
 
@@ -104,5 +93,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>
