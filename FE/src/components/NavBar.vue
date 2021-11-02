@@ -17,9 +17,8 @@
               </div>
               <v-menu offset-y bottom left>
                 <template v-slot:activator="{ on, attrs }">
-                  <!-- :color="user ? 'primary' : 'secondary'" -->
                   <v-btn x-large title="Info" icon v-bind="attrs" v-on="on">
-                    <v-icon :size="iconSizing() == true ? '50px' : '30'">mdi-account-circle</v-icon>
+                    <v-icon :size="iconSizing() == true ? '50px' : '30'" :color="user ? 'primary' : 'secondary'">mdi-account-circle</v-icon>
                   </v-btn>
                 </template>
                 <v-card>
@@ -67,18 +66,21 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import UserMenu from './UserMenu.vue';
 // import login from "../components/modals/Login.vue";
 
 export default {
-  components: {},
+  components: { UserMenu },
   computed: {
-    ...mapGetters(['cartItems']),
+    ...mapGetters(['cartItems', 'user']),
   },
   methods: {
     iconSizing() {
-      // if (this.$vuetify.breakpoint.xl) return true;
       return this.$vuetify.breakpoint.xl;
     },
+  },
+  created() {
+    this.$store.dispatch('fetchUserData');
   },
 };
 </script>
