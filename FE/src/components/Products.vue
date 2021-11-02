@@ -12,7 +12,10 @@
           <v-card-text class="text-xl-h5 text-lg-h6 text-md-subtitle-1 text-subtitle-1 black--text">
             <div class="d-flex justify-center">
               <h4>Price:&nbsp;</h4>
-              <h4>${{ item.ProductPrice }}</h4>
+              <h4>${{ $util.dicountCalculator(item.ProductPrice, item.ProductDiscount) }}</h4>
+            </div>
+            <div>
+              <h4>Discount: {{ item.ProductDiscount }}</h4>
             </div>
             <div class="d-flex justify-center">
               <h4>Stock:&nbsp;</h4>
@@ -41,6 +44,7 @@ export default {
         ProductPrice: 250,
         ProductStock: 7,
         ProductBought: 251,
+        ProductDiscount: 5,
       },
       {
         ProductId: 2,
@@ -49,6 +53,7 @@ export default {
         ProductPrice: 225,
         ProductStock: 2,
         ProductBought: 663,
+        ProductDiscount: 7.5,
       },
       {
         ProductId: 3,
@@ -57,6 +62,7 @@ export default {
         ProductPrice: 5551,
         ProductStock: 3,
         ProductBought: 17,
+        ProductDiscount: 10,
       },
       {
         ProductId: 4,
@@ -65,6 +71,7 @@ export default {
         ProductPrice: 1932,
         ProductStock: 543,
         ProductBought: 1543,
+        ProductDiscount: 15,
       },
     ],
     headersForDummyData: [
