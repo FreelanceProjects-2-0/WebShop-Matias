@@ -15,7 +15,7 @@
           </v-btn>
         </template>
         <v-slide-item v-for="(item, index) in sortedDummyData" :key="index" class="mb-8 px-4">
-          <v-card class="d-flex flex-column mx-1 my-1 pa-0" style="height: 100%" elevation="2" tile>
+          <v-card class="d-flex flex-column mx-1 my-1 pa-0" style="height: 95%" elevation="3" outlined tile>
             <v-card-title class="text-center d-block text-h5 text-xl-h4">
               {{ item.ProductTitle }}
             </v-card-title>
@@ -23,18 +23,19 @@
               {{ item.ProductDescription }}
             </v-card-subtitle>
             <v-card-text class="text-xl-h5 text-lg-h6 text-md-subtitle-1 text-subtitle-1 black--text">
-              <div class="d-flex justify-center">
+              <div class="d-flex">
                 <h4>Price:&nbsp;</h4>
                 <h4>${{ $util.dicountCalculator(item.ProductPrice, item.ProductDiscount) }}</h4>
               </div>
-              <div>
-                <h4>Discount: {{ item.ProductDiscount }}</h4>
+              <div class="d-flex">
+                <h4>Savings {{ item.ProductDiscount }}%&nbsp;</h4>
+                <h4 class="text-decoration-line-through grey--text">${{ item.ProductPrice }}</h4>
               </div>
-              <div class="d-flex justify-center">
+              <div class="d-flex">
                 <h4>Stock:&nbsp;</h4>
                 <h4 :class="$util.stockNumberColor(item.ProductStock)">{{ item.ProductStock }}</h4>
               </div>
-              <div class="d-flex justify-center">
+              <div class="d-flex">
                 <h4>Items sold:&nbsp;</h4>
                 <h4>{{ item.ProductBought }}</h4>
               </div>

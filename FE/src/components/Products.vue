@@ -4,7 +4,7 @@
       <v-col cols="12" v-for="(item, index) in dummyData" :key="index" class="mb-8 px-4 text-left">
         <v-card class="d-flex flex-column" style="height: 100%">
           <v-row no-gutters>
-            <v-col>
+            <v-col class="">
               <v-card-title class="text-left text-h5 text-xl-h4">
                 {{ item.ProductTitle }}
               </v-card-title>
@@ -19,7 +19,7 @@
                     <h4 class="text-decoration-line-through grey--text">${{ item.ProductPrice }}</h4>
                   </v-col>
                   <v-col class="justify-end" cols="3">
-                    <div class="d-flex justify-end">
+                    <div class="d-flex justify-end mt-0">
                       <v-img width="250px" src="@/assets/placeholder.jpg"></v-img>
                     </div>
                     <div class="d-flex justify-end" v-if="item.ProductStock <= 50">
