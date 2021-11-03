@@ -2,21 +2,20 @@
   <v-container fluid>
     <div v-if="sortedDummyData.length > 1">
       <h3>Top 10 most popular products</h3>
-
-      <v-slide-group show-arrows class="pa-4">
+      <v-slide-group show-arrows class="pa-0" draggable="false">
         <template v-slot:[`prev`]>
-          <v-btn icon>
-            <v-icon :class="hover ? (size = '30px') : (size = '10px')">mdi-chevron-left</v-icon>
+          <v-btn icon plain class="grey--text">
+            <v-icon>mdi-chevron-left</v-icon>
           </v-btn>
         </template>
         <template v-slot:[`next`]>
-          <v-btn icon>
-            <v-icon :class="hover ? (size = '30px') : (size = '10px')">mdi-chevron-right</v-icon>
+          <v-btn icon plain class="grey--text">
+            <v-icon>mdi-chevron-right</v-icon>
           </v-btn>
         </template>
-        <v-slide-item v-for="(item, index) in sortedDummyData" :key="index" class="mb-8 px-4">
-          <v-card class="d-flex flex-column mx-1 my-1 pa-0" style="height: 95%" elevation="3" outlined tile>
-            <v-card-title class="text-center d-block text-h5 text-xl-h4">
+        <v-slide-item v-for="(item, index) in sortedDummyData" :key="index">
+          <v-card class="d-flex flex-column mx-1 mx-sm-2 my-1" style="height: 95%" elevation="3" outlined tile>
+            <v-card-title class="text-center d-block text-xl-h4 font-weight-medium">
               {{ item.ProductTitle }}
             </v-card-title>
             <v-card-subtitle class="text-xl-h5">
