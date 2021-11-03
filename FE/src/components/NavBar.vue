@@ -6,7 +6,7 @@
           <div class="d-flex justify-space-between align-center ml-3">
             <h1 class="text-xl-h3">Webshop</h1>
             <div class="d-flex ml-3">
-              <v-btn x-large tile text depressed :to="{ name: 'Home' }" class="black--text text-xl-h5 font-weight-medium" exact-path>Forside</v-btn>
+              <v-btn x-large tile text depressed :to="{ name: 'Home' }" class="black--text text-xl-h5 font-weight-medium" exact-path>Home</v-btn>
               <v-btn x-large tile text depressed :to="{ name: 'Products' }" class="black--text text-xl-h5 font-weight-medium" exact-path>Products</v-btn>
             </div>
             <div class="ml-auto d-flex">
@@ -42,7 +42,7 @@
               <v-card>
                 <v-list>
                   <v-list-item :to="{ name: 'Home' }" exact>
-                    <v-list-item-title>Forside</v-list-item-title>
+                    <v-list-item-title>Home</v-list-item-title>
                   </v-list-item>
                   <v-list-item :to="{ name: 'Products' }" exact>
                     <v-list-item-title>Products</v-list-item-title>
@@ -81,6 +81,7 @@ export default {
   },
   created() {
     this.$store.dispatch('fetchUserData');
+    this.$store.dispatch('fetch_items');
   },
 };
 </script>
