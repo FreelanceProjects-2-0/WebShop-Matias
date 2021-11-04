@@ -10,7 +10,8 @@
               <v-btn x-large tile text depressed :to="{ name: 'Products' }" class="black--text text-xl-h5 font-weight-medium" exact-path>Products</v-btn>
             </div>
             <div class="ml-auto d-flex">
-              <div v-if="!cartItems.length">
+              <!-- <div v-if="!cartItems.length"> -->
+              <div>
                 <v-btn x-large icon depressed @click="$store.commit('setCartState', true)">
                   <v-icon :size="iconSizing() == true ? '50px' : '30'" color="black font-weight-bold">mdi-cart-outline</v-icon>
                 </v-btn>
@@ -47,7 +48,8 @@
                   <v-list-item :to="{ name: 'Products' }" exact>
                     <v-list-item-title>Products</v-list-item-title>
                   </v-list-item>
-                  <v-list-item v-if="!cartItems.length" @click="$store.commit('setCartState', true)">
+                  <!-- <v-list-item v-if="!cartItems.length" @click="$store.commit('setCartState', true)"> -->
+                  <v-list-item @click="$store.commit('setCartState', true)">
                     <v-list-item-title>Cart</v-list-item-title>
                   </v-list-item>
                 </v-list>
@@ -72,7 +74,8 @@ import UserMenu from './UserMenu.vue';
 export default {
   components: { UserMenu },
   computed: {
-    ...mapGetters(['cartItems', 'user']),
+    // ...mapGetters(['cartItems', 'user']),
+    ...mapGetters(['user']),
   },
   methods: {
     iconSizing() {
