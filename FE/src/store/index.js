@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import shop from './modules/shop';
+// import shop from './modules/shop';
 import auth from './modules/auth';
 import testData from './modules/testData';
 
@@ -21,7 +21,7 @@ export default new Vuex.Store({
   },
   actions: {},
   modules: {
-    shop,
+    // shop,
     auth,
     testData,
   },
