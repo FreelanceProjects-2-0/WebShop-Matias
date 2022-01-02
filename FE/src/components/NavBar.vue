@@ -6,8 +6,8 @@
           <div class="d-flex justify-space-between align-center ml-3">
             <h1 class="text-xl-h3">Webshop</h1>
             <div class="d-flex ml-3">
-              <v-btn x-large tile text depressed :to="{ name: 'Home' }" class="black--text text-xl-h5 font-weight-medium" exact-path>Home</v-btn>
-              <v-btn x-large tile text depressed :to="{ name: 'Products' }" class="black--text text-xl-h5 font-weight-medium" exact-path>Products</v-btn>
+              <v-btn x-large tile text depressed :to="{ path: '/' }" class="black--text text-xl-h5 font-weight-medium" exact-path>Home</v-btn>
+              <v-btn x-large tile text depressed :to="{ name: 'products' }" class="black--text text-xl-h5 font-weight-medium" exact-path>Products</v-btn>
             </div>
             <div class="ml-auto d-flex">
               <!-- <div v-if="!cartItems.length"> -->
@@ -24,7 +24,7 @@
                 </template>
                 <v-card>
                   <v-card-text>
-                    <user-menu @show-login="showLoginDialog = true" @show-password-change="showPasswordEditDialog = true" />
+                    <user-menu @show-login="showLoginDialog = true" />
                   </v-card-text>
                 </v-card>
               </v-menu>
@@ -42,10 +42,10 @@
               </template>
               <v-card>
                 <v-list>
-                  <v-list-item :to="{ name: 'Home' }" exact>
+                  <v-list-item :to="{ name: 'home' }" exact>
                     <v-list-item-title>Home</v-list-item-title>
                   </v-list-item>
-                  <v-list-item :to="{ name: 'Products' }" exact>
+                  <v-list-item :to="{ name: 'products' }" exact>
                     <v-list-item-title>Products</v-list-item-title>
                   </v-list-item>
                   <!-- <v-list-item v-if="!cartItems.length" @click="$store.commit('setCartState', true)"> -->
@@ -54,7 +54,7 @@
                   </v-list-item>
                 </v-list>
                 <v-divider></v-divider>
-                <user-menu class="mt-2" @show-login="showLoginDialog = true" @show-password-change="showPasswordEditDialog = true" />
+                <user-menu class="mt-2" @show-login="showLoginDialog = true" />
               </v-card>
             </v-menu>
           </div>
@@ -63,27 +63,32 @@
         </v-col>
       </v-row>
     </v-container>
+    <v-dialog v-model="showLoginDialog" width="500">
+      <login @hide-login="showLoginDialog = false" />
+    </v-dialog>
   </v-container>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
 import UserMenu from './UserMenu.vue';
-// import login from "../components/modals/Login.vue";
+import Login from './Login.vue';
 
 export default {
-  components: { UserMenu },
+  components: { UserMenu, Login },
   computed: {
     // ...mapGetters(['cartItems', 'user']),
     ...mapGetters(['user']),
   },
+  data: () => ({
+    showLoginDialog: false,
+  }),
   methods: {
     iconSizing() {
       return this.$vuetify.breakpoint.xl;
     },
   },
   created() {
-    this.$store.dispatch('fetchUserData');
     this.$store.dispatch('fetch_items');
   },
 };
