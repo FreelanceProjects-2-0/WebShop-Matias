@@ -1,4 +1,4 @@
-// import apiService from '@/services/apiService';
+import apiService from '@/services/apiService';
 
 export default {
   state: {
@@ -8,14 +8,24 @@ export default {
   getters: {
     authToken: (state) => state.authToken,
     user: (state) => state.user,
+    isAdmin: (state) => state.user?.roles.includes('admin'),
+    
+    // Is manager or admin
+    isManager: (state) => (state.user?.roles.includes('manager') || state.user?.roles.includes('admin')),
   },
   actions: {
-    fetchUserData({ commit }) {
-      //   let response = this.state.user; // Change to API when made.
-      commit('setUserData', { name: 'TestName' });
-      commit('setAuthToken', 'response.data.authToken');
-      localStorage.setItem('userData', { name: 'TestName' });
+    async AUTHENTICATE({ commit }, credentials) {
+      const response = await apiService.login(credentials);
+
+      commit('setAuthToken', response.data.auth_token);
+      commit('setUserData', response.data);
+      localStorage.setItem('authToken', response.data.auth_token);
     },
+    LOGOUT({ commit }) {
+      localStorage.removeItem('authToken');
+      commit('setAuthToken', null);
+      commit('setUserData', null);
+    }
   },
   mutations: {
     setUserData: (state, user) => {

@@ -1,5 +1,6 @@
 <template>
   <v-container fluid>
+    <h1>test</h1>
     <h1 v-if="errorMessage">{{ errorMessage }}</h1>
     <v-row no-gutters v-else>
       <v-col cols="12" v-for="(item, index) in productList" :key="index" class="mb-2 px-0 text-left">
@@ -8,12 +9,12 @@
           <v-row no-gutters>
             <v-col>
               <v-card-title>
-                {{ item.ProductTitle }}
+                {{ item.title }}
               </v-card-title>
               <v-card-subtitle>
                 <v-row no-gutters>
                   <v-col cols="9">
-                    {{ item.ProductDescription + 'ajsdjioj diosa jdoias jdoiasjdoiajoidajoidjasoisaoi djia jdoias jdisa jdoas' }}
+                    {{ item.description }}
                     <div class="d-flex justify-end mt-0">
                       <v-img width="250px" src="@/assets/placeholder.jpg"></v-img>
                     </div>
@@ -23,12 +24,12 @@
             </v-col>
             <v-card-text class="text-xl-h5 text-lg-h6 text-subtitle-1 black--text">
               <div class="d-flex">
-                <h4>Price&nbsp;${{ $util.dicountCalculator(item.ProductPrice, item.ProductDiscount) }}</h4>
+                <h4>Price&nbsp;${{ $util.dicountCalculator(item.price, item.discount) }}</h4>
                 <h4 class="ml-auto text-decoration-line-through grey--text">${{ item.ProductPrice }}</h4>
               </div>
               <div class="d-flex" v-if="item.ProductStock <= 50">
                 <h4>Items in stock&nbsp;</h4>
-                <h4 :class="$util.stockNumberColor(item.ProductStock)" class="ml-auto">{{ item.ProductStock }}</h4>
+                <h4 :class="$util.stock(item.ProductStock)" class="ml-auto">{{ item.ProductStock }}</h4>
               </div>
               <div class="d-flex">
                 <h4>Items sold</h4>
@@ -42,12 +43,12 @@
           <v-row no-gutters>
             <v-col>
               <v-card-title class="text-xl-h4">
-                {{ item.ProductTitle }}
+                {{ item.title }}
               </v-card-title>
               <v-card-subtitle class="text-xl-h5">
                 <v-row no-gutters>
                   <v-col cols="9">
-                    {{ item.ProductDescription + 'ajsdjioj diosa jdoias jdoiasjdoiajoidajoidjasoisaoi djia jdoias jdisa jdoas' }}
+                    {{ item.description }}
                   </v-col>
                   <v-col cols="3">
                     <div class="d-flex justify-end mt-0">
@@ -60,16 +61,16 @@
             <v-card-text class="text-xl-h5 text-lg-h6 text-subtitle-1 black--text">
               <v-row no-gutters>
                 <v-col class="">
-                  <h4>Price&nbsp;${{ $util.dicountCalculator(item.ProductPrice, item.ProductDiscount) }}</h4>
-                  <h4 class="text-decoration-line-through grey--text">${{ item.ProductPrice }}</h4>
+                  <h4>Price&nbsp;${{ $util.dicountCalculator(item.price, item.discount) }}</h4>
+                  <h4 class="text-decoration-line-through grey--text">${{ item.price }}</h4>
                 </v-col>
                 <v-col class="justify-end" cols="6">
-                  <div class="d-flex justify-end" v-if="item.ProductStock <= 50">
-                    <h4 :class="$util.stockNumberColor(item.ProductStock)">{{ item.ProductStock }}</h4>
+                  <div class="d-flex justify-end" v-if="item.stock <= 50">
+                    <h4 :class="$util.stockNumberColor(item.stock)">{{ item.stock }}</h4>
                     <h4>&nbsp;Items in stock</h4>
                   </div>
                   <div class="d-flex justify-end">
-                    <h4>{{ item.ProductBought }}</h4>
+                    <h4>{{ item.bought }}</h4>
                     <h4>&nbsp;Items sold</h4>
                   </div>
                 </v-col>
@@ -90,7 +91,6 @@ export default {
   }),
   computed: {
     isMobile() {
-      console.log(window.innerWidth);
       if (window.innerWidth < 350) {
         return true;
       }

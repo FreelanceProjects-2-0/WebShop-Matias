@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <div>
-      <product-list :data="dummyData" />
+      <product-list :data="products" />
     </div>
   </v-container>
 </template>
@@ -16,13 +16,14 @@ export default {
     ProductList,
   },
   computed: {
-    ...mapGetters(['dummyShopItems']),
+    ...mapGetters(['shopItems']),
   },
   data: () => ({
-    dummyData: [],
+    products: [],
   }),
   created() {
-    this.dummyData = this.dummyShopItems;
+    this.$store.dispatch('fetch_items');
+    this.products = this.shopItems;
   },
 };
 </script>

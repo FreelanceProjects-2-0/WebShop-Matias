@@ -15,27 +15,27 @@
       <v-slide-item v-for="(item, index) in productList" :key="index">
         <v-card class="d-flex flex-column mx-1 mx-sm-2 my-1" style="height: 95%; width: 275px" elevation="3" outlined tile>
           <v-card-title class="text-center d-block text-xl-h4 font-weight-medium">
-            {{ item.ProductTitle }}
+            {{ item.title }}
           </v-card-title>
           <v-card-subtitle class="text-xl-h5">
-            {{ item.ProductDescription }}
+            {{ item.description }}
           </v-card-subtitle>
           <v-card-text class="text-xl-h5 text-lg-h6 text-md-subtitle-1 text-subtitle-1 black--text">
             <div class="d-flex">
               <h4>Price:&nbsp;</h4>
-              <h4 class="ml-auto">${{ $util.dicountCalculator(item.ProductPrice, item.ProductDiscount) }}</h4>
+              <h4 class="ml-auto">${{ $util.dicountCalculator(item.price, item.discount) }}</h4>
             </div>
             <div class="d-flex flex-row">
-              <h4>Savings {{ item.ProductDiscount }}%&nbsp;</h4>
-              <h4 class="text-decoration-line-through grey--text ml-auto">${{ item.ProductPrice }}</h4>
+              <h4>Savings {{ item.discount }}%&nbsp;</h4>
+              <h4 class="text-decoration-line-through grey--text ml-auto">${{ item.price }}</h4>
             </div>
             <div class="d-flex justify-end">
               <h4>Stock:&nbsp;</h4>
-              <h4 :class="$util.stockNumberColor(item.ProductStock)">{{ item.ProductStock }}</h4>
+              <h4 :class="$util.stockNumberColor(item.stock)">{{ item.stock }}</h4>
             </div>
             <div class="d-flex justify-end">
               <h4>Items sold:&nbsp;</h4>
-              <h4>{{ item.ProductBought }}</h4>
+              <h4>{{ item.bought }}</h4>
             </div>
           </v-card-text>
         </v-card>

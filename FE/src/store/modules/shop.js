@@ -4,7 +4,6 @@ export default {
     state: {
         shopItems: [],
         cartIsOpen: false,
-        userData: [],
         cartProductIds: [],
         orderInformation: [],
     },
@@ -13,14 +12,12 @@ export default {
         cartItems: (state) => state.cartProductIds.map((x) => state.items.find(y => y.id === x)),
         cartProductIds: (state) => state.cartProductIds,
         cartIsOpen: (state) => state.cartIsOpen,
-        userData: (state) => state.userData,
         orderInformation: (state) => state.orderInformation,
     },
     actions: {
-        async fetch_items({commit, dispatch}) {
-            const response = await apiService.shopItemsRequest();
+        async fetch_items({commit}) {
+            const response = await apiService.getShopItems();
             commit('updateShopItems', response.data);
-            dispatch('try_cached_order');
             return true;
         },
         try_cached_order({commit}) {

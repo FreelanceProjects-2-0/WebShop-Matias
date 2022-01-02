@@ -16,7 +16,7 @@ const util = {
     let averageSold;
     let timesRun = 0;
     items.forEach((element) => {
-      averageSold = +element.ProductBought;
+      averageSold = +element.bought;
       timesRun++;
     });
     averageSold = averageSold / timesRun;

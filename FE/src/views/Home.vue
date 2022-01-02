@@ -1,15 +1,15 @@
 <template>
-  <Home-Page />
+    <router-view />
 </template>
 
 <script>
-import HomePage from '../components/HomePage';
+// import HomePage from '@/components/HomePage';
 
 export default {
   name: 'Home',
 
   components: {
-    HomePage,
+    // HomePage
   },
 };
 </script>

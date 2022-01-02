@@ -1,12 +1,12 @@
 <template>
   <v-container fluid>
-    <div v-if="sortedDummyData.length > 1">
+    <div v-if="sortedshopItems.length > 1">
       <h3>Top 10 most popular products</h3>
       <div v-if="!$vuetify.breakpoint.xs">
-        <product-carousel :data="sortedDummyData" />
+        <product-carousel :data="sortedshopItems" />
       </div>
       <div v-else>
-        <product-list :data="sortedDummyData" />
+        <product-list :data="sortedshopItems" />
       </div>
     </div>
   </v-container>
@@ -26,54 +26,59 @@ export default {
 
   data: () => ({
     // This is test data
-    sortedDummyData: [],
-    dummyData: [],
-    headersForDummyData: [
+    sortedshopItems: [],
+    products: [],
+    headersForshopItems: [
       {
         text: 'Product',
-        value: 'ProductTitle',
+        value: 'title',
       },
       {
         text: 'Description',
-        value: 'ProductDescription',
+        value: 'description',
       },
       {
         text: 'Price',
-        value: 'ProductPrice',
+        value: 'price',
       },
       {
         text: 'På lager',
-        value: 'ProductStock',
+        value: 'stock',
       },
       {
         text: 'Tidligere købt',
-        value: 'ProductBought',
+        value: 'bought',
       },
     ],
   }),
   computed: {
-    ...mapGetters(['dummyShopItems']),
+    ...mapGetters(['shopItems']),
     averageSold() {
-      return this.$util.calculateAverageSoldItems(this.dummyData);
+      return this.$util.calculateAverageSoldItems(this.shopItems);
     },
   },
   methods: {
-    // This method will get only top 8 most bo ffught products, sorted by how many times product has been bought, and if that's equal to another then the stock of products will be compared.
-    checkBoughtNumber() {
+    async loadData() {
+      await this.$store.dispatch('fetch_items');
+      this.checkBoughtNumber(this.shopItems);
+    },
+    
+    // This method will get only top 8 most bo bought products, sorted by how many times product has been bought, and if that's equal to another then the stock of products will be compared.
+    checkBoughtNumber(items) {
       let productCount = 0;
-      this.dummyData.forEach((item) => {
-        if (item.ProductBought > this.averageSold && productCount < 10) {
-          this.sortedDummyData.push({ ...item });
+
+      items.forEach(element => {
+        if (element.bought > this.averageSold && productCount < 10)
+        {
+          this.sortedshopItems.push({ ...element });
           productCount++;
         }
       });
-      this.sortedDummyData.sort((a, b) => (a.ProductBought < b.ProductBought ? 1 : a.ProductBought == b.ProductBought ? (a.ProductStock > b.ProductStock ? 1 : -1) : -1));
+      this.sortedshopItems.sort((a, b) => (a.bought < b.bought ? 1 : a.bought == b.bought ? (a.stock > b.stock ? 1 : -1) : -1));
     },
   },
   created() {
-    this.dummyData = this.dummyShopItems;
-    // this.$store.dispatch('fetch_items');
-    this.checkBoughtNumber();
+    this.loadData();
   },
 };
 </script>
