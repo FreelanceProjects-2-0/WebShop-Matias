@@ -2,37 +2,78 @@ import apiService from '@/services/apiService';
 
 export default {
   state: {
-    authToken: null,
     user: null,
   },
   getters: {
-    authToken: (state) => state.authToken,
     user: (state) => state.user,
+    authToken: (state) => state.user?.token,
+    isAuthenticated: (state) => !!state.user,
     isAdmin: (state) => state.user?.roles.includes('admin'),
-    
-    // Is manager or admin
-    isManager: (state) => (state.user?.roles.includes('manager') || state.user?.roles.includes('admin')),
+    isManager: (state) => state.user?.roles.includes('manager') || state.user?.roles.includes('admin'),
+    hasRole: (state) => (role) => state.user?.roles.includes(role),
   },
   actions: {
     async AUTHENTICATE({ commit }, credentials) {
-      const response = await apiService.login(credentials);
+      const user = await apiService.login(credentials);
+      commit('updateUser', user);
+      console.log(user);
+      localStorage.setItem('refreshToken', user.refreshToken);
 
-      commit('setAuthToken', response.data.auth_token);
-      commit('setUserData', response.data);
-      localStorage.setItem('authToken', response.data.auth_token);
+      return user;
+    },
+    async AUTHENTICATE_REFRESH({ commit }) {
+      const cachedToken = localStorage.getItem('refreshToken');
+
+      if (cachedToken) {
+        try {
+          const user = await apiService.refreshWithToken(cachedToken);
+
+          commit('updateUser', user);
+          localStorage.setItem('refreshToken', user.refreshToken);
+          return true;
+        }
+        catch (err) {
+          if (err?.response?.status === 401) {
+            console.log('stored refresh token not accepted, clearing it');
+            localStorage.removeItem('refreshToken');
+          } else {
+            console.log('unable to utilize stored refresh token');
+          }
+          return false;
+        }
+      }
+
+      return false;
+    },
+    async RESET_PASSWORD(store, username) {
+      return await apiService.resetPassword(username);
+    },
+    async ENSURE_AUTH({ getters, dispatch }) {
+      if (!getters.isAuthenticated) {
+        await dispatch('AUTHENTICATE_REFRESH');
+      }
+
+      return getters.isAuthenticated;
     },
     LOGOUT({ commit }) {
-      localStorage.removeItem('authToken');
-      commit('setAuthToken', null);
-      commit('setUserData', null);
+      localStorage.removeItem('refreshToken');
+      commit('updateUser', null);
+    },
+    UPDATE_SETTING({ commit, getters }, { setting, value }) {
+      commit('updateUserSetting', { setting, value });
+
+      apiService.updateUserSettings(getters.userSettings)
+        .catch((e) => {
+          console.error('failed to save user settings', e);
+        });
     }
   },
   mutations: {
-    setUserData: (state, user) => {
+    updateUser: (state, user) => {
       state.user = user;
     },
-    setAuthToken: (state, authToken) => {
-      state.authToken = authToken;
-    },
+    updateUserSetting: (state, { setting, value }) => {
+      state.user.settings[setting] = value;
+    }
   },
 };

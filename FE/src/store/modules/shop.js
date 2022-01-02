@@ -17,7 +17,7 @@ export default {
     actions: {
         async fetch_items({commit}) {
             const response = await apiService.getShopItems();
-            commit('updateShopItems', response.data);
+            commit('updateShopItems', response);
             return true;
         },
         try_cached_order({commit}) {
