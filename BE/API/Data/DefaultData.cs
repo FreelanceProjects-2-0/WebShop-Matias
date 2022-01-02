@@ -49,7 +49,7 @@ namespace WebShop.API.Data
             if (!context.ShopItems.Any())
             {
                 ShopItem[] itemsList = new ShopItem[12];
-                itemsList[0] = new ShopItem{
+                itemsList[0] = new ShopItem(){
                     Title = "Product 1",
                     Description = "This is a test description",
                     Price = 250,
@@ -57,7 +57,7 @@ namespace WebShop.API.Data
                     Bought = 373,
                     Discount = 5
                 };
-                itemsList[1] = new ShopItem
+                itemsList[1] = new ShopItem()
                 {
                     Title = "Product 2",
                     Description = "This is a test description",
