@@ -44,6 +44,7 @@ namespace WebShop.API.Controllers
         }
 
         [HttpPut]
+        [Authorize(Policy = AuthPolicies.RequireManager)]
         public IActionResult Update([FromBody] ShopItemViewModel viewModel)
         {
             var entity = _mapper.Map<ShopItem>(viewModel);
@@ -56,6 +57,7 @@ namespace WebShop.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Policy = AuthPolicies.RequireAdmin)]
         public IActionResult Delete(Guid id)
         {
             var entity = _context.ShopItems.Find(id);
