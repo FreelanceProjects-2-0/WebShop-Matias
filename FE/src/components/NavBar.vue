@@ -89,7 +89,6 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch('fetch_items');
   },
 };
 </script>

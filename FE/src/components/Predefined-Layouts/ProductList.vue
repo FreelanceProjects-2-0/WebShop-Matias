@@ -1,8 +1,11 @@
 <template>
   <v-container fluid>
+    <v-row no-gutters class="px-2">
+      <v-btn tile @click="isDataTable = !isDataTable"> {{ isDataTable ? 'Show card-list': 'Show datatable'}}</v-btn>
+    </v-row>
     <h1 v-if="errorMessage">{{ errorMessage }}</h1>
-    <v-row no-gutters v-else>
-      <v-col cols="5" v-for="(item, index) in productList" :key="index" class="my-2 mx-2 px-0 text-left">
+    <v-row no-gutters v-else-if="!isDataTable">
+      <v-col cols="6" v-for="(item, index) in products" :key="index" class="py-2 px-2 text-left">
         <!--   -->
         <v-card v-if="isMobile" class="" style="height: 100%">
           <v-row no-gutters>
@@ -79,14 +82,47 @@
         </v-card>
       </v-col>
     </v-row>
+    <v-row v-else>
+      <v-data-table :items="products" :headers="productDataTableHeaders">
+
+      </v-data-table>
+    </v-row>
   </v-container>
 </template>
 
 <script>
 export default {
   data: () => ({
-    productList: [],
+    isDataTable: false,
+    products: [],
     errorMessage: '',
+
+    productDataTableHeaders: [
+      {
+        text: 'Title',
+        value: 'title',
+      },
+      {
+        text: 'Description',
+        value:'description',
+      },
+      {
+        text: 'Price',
+        value:'price',
+      },
+      {
+        text: '',
+        value:'',
+      },
+      {
+        text: '',
+        value:'',
+      },
+      {
+        text: '',
+        value:'',
+      }
+    ],
   }),
   computed: {
     isMobile() {
@@ -101,10 +137,11 @@ export default {
     data: Array,
   },
   created() {
+    console.log('yikes',this.data);
     if (!this.data) {
       this.errorMessage = 'No products loaded...';
     } else {
-      this.productList = this.data;
+      this.products = this.data;
     }
   },
 };

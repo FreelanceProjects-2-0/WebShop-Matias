@@ -106,10 +106,10 @@ const service = {
   },
 
   // Items
-  getShopItems() {
+  getProducts() {
     return this.get('shop/shopitem',  {noAuth: true});
   },
-  addShopItem(shopItem) {
+  createOrEditShopItem(shopItem) {
     return this.put('shop/shopitem', shopItem);
   },
   // const shopItem = {

@@ -1,21 +1,21 @@
 <template>
   <v-container fluid>
-    <div v-if="sortedshopItems.length > 1">
+    <div v-if="sortedProducts.length >= 1">
       <h3>Top 10 most popular products</h3>
       <div v-if="!$vuetify.breakpoint.xs">
-        <product-carousel :data="sortedshopItems" />
+        <product-carousel :data="sortedProducts" />
       </div>
       <div v-else>
-        <product-list :data="sortedshopItems" />
+        <product-list :data="sortedProducts" />
       </div>
     </div>
   </v-container>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 import ProductCarousel from './Predefined-Layouts/productCarousel.vue';
 import ProductList from './Predefined-Layouts/ProductList.vue';
+import apiService from '@/services/apiService.js';
 
 export default {
   name: 'HomePage',
@@ -26,9 +26,9 @@ export default {
 
   data: () => ({
     // This is test data
-    sortedshopItems: [],
+    sortedProducts: [],
     products: [],
-    headersForshopItems: [
+    headersForProducts: [
       {
         text: 'Product',
         value: 'title',
@@ -52,15 +52,14 @@ export default {
     ],
   }),
   computed: {
-    ...mapGetters(['shopItems']),
     averageSold() {
-      return this.$util.calculateAverageSoldItems(this.shopItems);
+      return this.$util.calculateAverageSoldItems(this.products);
     },
   },
   methods: {
-    async loadData() {
-      await this.$store.dispatch('fetch_items');
-      this.checkBoughtNumber(this.shopItems);
+    async getProducts() {
+      this.products = await apiService.getProducts();
+      this.checkBoughtNumber(this.products);
     },
     
     // This method will get only top 8 most bo bought products, sorted by how many times product has been bought, and if that's equal to another then the stock of products will be compared.
@@ -70,15 +69,15 @@ export default {
       items.forEach(element => {
         if (element.bought > this.averageSold && productCount < 10)
         {
-          this.sortedshopItems.push({ ...element });
+          this.sortedProducts.push({ ...element });
           productCount++;
         }
       });
-      this.sortedshopItems.sort((a, b) => (a.bought < b.bought ? 1 : a.bought == b.bought ? (a.stock > b.stock ? 1 : -1) : -1));
+      this.sortedProducts.sort((a, b) => (a.bought < b.bought ? 1 : a.bought == b.bought ? (a.stock > b.stock ? 1 : -1) : -1));
     },
   },
   created() {
-    this.loadData();
+    this.getProducts();
   },
 };
 </script>
