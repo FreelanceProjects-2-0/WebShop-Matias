@@ -34,12 +34,7 @@ namespace WebShop.API.Data
                     await roleManager.CreateAsync(new IdentityRole() { Name = AuthRoles.Admin });
                 }
 
-                if (!await roleManager.RoleExistsAsync(AuthRoles.Manager))
-                {
-                    await roleManager.CreateAsync(new IdentityRole() { Name = AuthRoles.Manager });
-                }
-
-                await userMgr.AddToRolesAsync(user, new string[] { AuthRoles.Admin, AuthRoles.Manager } );
+                await userMgr.AddToRolesAsync(user, new string[] { AuthRoles.Admin } );
             }
         }
 

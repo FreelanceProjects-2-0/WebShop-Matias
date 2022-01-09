@@ -32,16 +32,13 @@ const router = new VueRouter({
 });
 
 router.beforeEach(async (to,from,next) =>{
-  const requiresAuth = to.matched.some((record) => record.meta.requiresAdmin || record.meta.requiresManager || record.meta.requiresAuth);
+  const requiresAuth = to.matched.some((record) => record.meta.requiresAdmin || record.meta.requiresAuth);
   const authReq = store.dispatch('ENSURE_AUTH');
 
   if (requiresAuth){
     let success = await authReq
     if (to.matched.some((record) => record.meta.requiresAdmin)){
       success = store.getters.isAdmin;
-    }
-    else if (to.matched.some((record) => record.meta.requiresManager)){
-      success = store.getters.isManager;
     }
 
     if (!success) {

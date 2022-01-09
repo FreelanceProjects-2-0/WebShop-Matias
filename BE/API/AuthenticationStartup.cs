@@ -63,7 +63,6 @@ namespace WebShop.API
             services.AddAuthorization(options =>
             {
                 options.AddPolicy(AuthPolicies.RequireAdmin, policy => policy.RequireClaim(AuthConstants.JwtClaimIdentifiers.Rol, AuthRoles.Admin));
-                options.AddPolicy(AuthPolicies.RequireManager, policy => policy.RequireClaim(AuthConstants.JwtClaimIdentifiers.Rol, AuthRoles.Admin, AuthRoles.Manager));
             });
 
             // add identity

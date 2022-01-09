@@ -51,7 +51,7 @@ export default {
     },
   }),
   computed: {
-    ...mapGetters(['user', 'isManager']),
+    ...mapGetters(['user']),
   },
   methods: {
     validate(e) {

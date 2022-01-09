@@ -44,7 +44,7 @@ namespace WebShop.API.Controllers
         }
 
         [HttpPut]
-        [Authorize(Policy = AuthPolicies.RequireManager)]
+        [Authorize(Policy = AuthPolicies.RequireAdmin)]
         public IActionResult Update([FromBody] ShopItemViewModel viewModel)
         {
             var entity = _mapper.Map<ShopItem>(viewModel);

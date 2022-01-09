@@ -35,7 +35,7 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'user-menu',
   computed: {
-    ...mapGetters(['user', 'isManager']),
+    ...mapGetters(['user']),
   },
   methods: {
     logout() {

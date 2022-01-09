@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 namespace WebShop.API.Controllers
 {
     [ApiController]
-    [Authorize(Policy = AuthPolicies.RequireManager)]
+    [Authorize(Policy = AuthPolicies.RequireAdmin)]
     [Route("[controller]")]
     public class UserController : Controller
     {
@@ -85,7 +85,7 @@ namespace WebShop.API.Controllers
 
             if (viewModel.Id == null)
             {
-                if (!User.HasAnyRole(AuthRoles.Manager, AuthRoles.Admin))
+                if (!User.HasAnyRole(AuthRoles.Admin))
                 {
                     _logger.LogError("User is not allowed to add users");
 
