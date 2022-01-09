@@ -82,13 +82,11 @@
         </v-card>
       </v-col>
     </v-row>
-    <v-row v-else>
-      <v-data-table :items="products" :headers="productDataTableHeaders">
+      <v-data-table v-else :items="products" :headers="productDataTableHeaders">
         <template v-slot:[`item.discountPrice`]="product">
           {{ $util.dicountCalculator(product.item.price, product.item.discount) }}
         </template>
       </v-data-table>
-    </v-row>
   </v-container>
 </template>
 
@@ -143,7 +141,6 @@ export default {
     data: Array,
   },
   created() {
-    console.log('yikes',this.data);
     if (!this.data) {
       this.errorMessage = 'No products loaded...';
     } else {
