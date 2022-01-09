@@ -84,7 +84,9 @@
     </v-row>
     <v-row v-else>
       <v-data-table :items="products" :headers="productDataTableHeaders">
-
+        <template v-slot:[`item.discountPrice`]="product">
+          {{ $util.dicountCalculator(product.item.price, product.item.discount) }}
+        </template>
       </v-data-table>
     </v-row>
   </v-container>
@@ -107,20 +109,24 @@ export default {
         value:'description',
       },
       {
-        text: 'Price',
+        text: 'Before discount',
         value:'price',
       },
       {
-        text: '',
-        value:'',
+        text: 'Price',
+        value:'discountPrice',
       },
       {
-        text: '',
-        value:'',
+        text: 'Discount',
+        value:'discount',
       },
       {
-        text: '',
-        value:'',
+        text: 'Stock',
+        value:'stock',
+      },
+      {
+        text: 'Bought',
+        value:'bought',
       }
     ],
   }),
