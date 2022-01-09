@@ -1,6 +1,5 @@
 <template>
   <v-container fluid>
-    <h1>test</h1>
     <h1 v-if="errorMessage">{{ errorMessage }}</h1>
     <v-row no-gutters v-else>
       <v-col cols="5" v-for="(item, index) in productList" :key="index" class="my-2 mx-2 px-0 text-left">
