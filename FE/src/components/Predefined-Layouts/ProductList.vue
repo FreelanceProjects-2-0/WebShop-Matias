@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
-    <v-row no-gutters class="px-2">
-      <v-btn tile @click="isDataTable = !isDataTable"> {{ isDataTable ? 'Show card-list': 'Show datatable'}}</v-btn>
+    <v-row no-gutters>
+      <v-checkbox class="ml-auto" v-model="isDataTable" label="Show as table"/>
     </v-row>
     <h1 v-if="errorMessage">{{ errorMessage }}</h1>
     <v-row no-gutters v-else-if="!isDataTable">
@@ -82,7 +82,17 @@
         </v-card>
       </v-col>
     </v-row>
-      <v-data-table v-else :items="products" :headers="productDataTableHeaders">
+      <v-data-table v-else :items="products" :headers="productDataTableHeaders" :search="search" >
+      <template v-slot:top class="text-center">
+        <v-row justify="center">
+        <v-card width="500" flat class="px-4">
+        <v-text-field
+          v-model="search"
+          label="Search"
+        />
+        </v-card>
+        </v-row>
+      </template>
         <template v-slot:[`item.discountPrice`]="product">
           {{ $util.dicountCalculator(product.item.price, product.item.discount) }}
         </template>
@@ -93,6 +103,7 @@
 <script>
 export default {
   data: () => ({
+    search: '',
     isDataTable: false,
     products: [],
     errorMessage: '',
@@ -107,15 +118,15 @@ export default {
         value:'description',
       },
       {
-        text: 'Before discount',
+        text: 'Before discount ($)',
         value:'price',
       },
       {
-        text: 'Price',
+        text: 'Price ($)',
         value:'discountPrice',
       },
       {
-        text: 'Discount',
+        text: 'Discount (%)',
         value:'discount',
       },
       {
