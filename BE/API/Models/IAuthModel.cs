@@ -7,5 +7,6 @@ namespace WebShop.API.Models
     {
         Task<AuthResponse> AuthenticateWithCredentialsAsync(string username, string password);
         Task<AuthResponse> AuthenticateWithRefreshTokenAsync(string refreshTokenId);
+        //Task<AuthResponse> UpdateRefreshTokenAsync(string refreshTokenId, string password);
     }
 }

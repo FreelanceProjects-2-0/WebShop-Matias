@@ -49,6 +49,21 @@ namespace WebShop.API.Controllers.Admin
             return Ok(await GetJwtResult(response));
         }
 
+        //[HttpPost("updateRefreshToken")]
+        //[Authorize]
+        //public async Task<IActionResult> Post([FromBody] UpdateRefreshTokenViewModel data)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+
+        //    var response = await _authModel.UpdateRefreshTokenAsync(data.refreshTokenId, data.Password);
+            
+        //    if (response == null) return NotFound();
+
+        //    return Ok(response);
+        //}
         private async Task<AuthResponseViewModel> GetJwtResult(AuthResponse response)
         {
             return new AuthResponseViewModel
