@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import HomeView from '@/views/Home.vue';
 import HomeComponent from '@/components/HomePage.vue';
 import productComponent from '@/components/Products.vue';
+// import productComponent from '@/components/Products.vue';
 import store from '@/store/index';
 
 Vue.use(VueRouter);
@@ -10,17 +11,25 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: '/',
+    name: 'home',
     component: HomeView,
     children: [
       {
-        path: '/',
-        name: 'home',
+        path: '',
+        name: 'frontPage',
         component: HomeComponent,
       },
       {
-        path: '/products',
-        name: 'products',
+        path: 'product',
+        name: 'product',
         component: productComponent,
+        children: [
+          {
+            path: ':productId',
+            name: 'productDetails',
+            // component: productDetailsComponent,
+          }
+        ],
       },
     ],
   },

@@ -6,8 +6,8 @@
           <div class="d-flex justify-space-between align-center ml-3">
             <h1 class="text-xl-h3">Webshop</h1>
             <div class="d-flex ml-3">
-              <v-btn x-large tile text depressed :to="{ path: '/' }" class="black--text text-xl-h5 font-weight-medium" exact-path>Home</v-btn>
-              <v-btn x-large tile text depressed :to="{ name: 'products' }" class="black--text text-xl-h5 font-weight-medium" exact-path>Products</v-btn>
+              <v-btn x-large tile text depressed :to="{ name: 'frontPage' }" class="black--text text-xl-h5 font-weight-medium" exact-path>Home</v-btn>
+              <v-btn x-large tile text depressed :to="{ name: 'product' }" class="black--text text-xl-h5 font-weight-medium" exact-path>Products</v-btn>
             </div>
             <div class="ml-auto d-flex">
               <!-- <div v-if="!cartItems.length"> -->
