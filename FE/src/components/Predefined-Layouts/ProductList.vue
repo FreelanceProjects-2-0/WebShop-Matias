@@ -1,11 +1,11 @@
 <template>
   <v-container fluid>
     <v-row no-gutters>
-      <v-checkbox class="ml-auto" v-model="isDataTable" label="Show as table"/>
+      <v-checkbox class="ml-auto" v-model="isDataTable" label="Show as table" />
     </v-row>
     <h1 v-if="errorMessage">{{ errorMessage }}</h1>
     <v-row no-gutters v-else-if="!isDataTable">
-      <v-col cols="6" v-for="(item, index) in products" :key="index" class="py-2 px-2 text-left">
+      <v-col cols="6" v-for="(item, index) in products" :key="index" class="py-2 px-2 text-left" @click="editProduct(item)">
         <!--   -->
         <v-card v-if="isMobile" class="" style="height: 100%">
           <v-row no-gutters>
@@ -82,26 +82,28 @@
         </v-card>
       </v-col>
     </v-row>
-      <v-data-table v-else :items="products" :headers="productDataTableHeaders" :search="search" >
+    <v-data-table v-else :items="products" :headers="productDataTableHeaders" :search="search">
       <template v-slot:top class="text-center">
         <v-row justify="center">
-        <v-card width="500" flat class="px-4">
-        <v-text-field
-          v-model="search"
-          label="Search"
-        />
-        </v-card>
+          <v-card width="500" flat class="px-4">
+            <v-text-field v-model="search" label="Search" />
+          </v-card>
         </v-row>
       </template>
-        <template v-slot:[`item.discountPrice`]="product">
-          {{ $util.dicountCalculator(product.item.price, product.item.discount) }}
-        </template>
-      </v-data-table>
+      <template v-slot:[`item.discountPrice`]="product">
+        {{ $util.dicountCalculator(product.item.price, product.item.discount) }}
+      </template>
+    </v-data-table>
+    <create-edit-product ref="CreateEditproductRef" @product-updated="getProducts" />
   </v-container>
 </template>
 
 <script>
+import CreateEditProduct from '../Dialogs/CreateEditProduct.vue';
+import apiService from '@/services/apiService.js';
+
 export default {
+  components: { CreateEditProduct },
   data: () => ({
     search: '',
     isDataTable: false,
@@ -115,28 +117,28 @@ export default {
       },
       {
         text: 'Description',
-        value:'description',
+        value: 'description',
       },
       {
         text: 'Before discount ($)',
-        value:'price',
+        value: 'price',
       },
       {
         text: 'Price ($)',
-        value:'discountPrice',
+        value: 'discountPrice',
       },
       {
         text: 'Discount (%)',
-        value:'discount',
+        value: 'discount',
       },
       {
         text: 'Stock',
-        value:'stock',
+        value: 'stock',
       },
       {
         text: 'Bought',
-        value:'bought',
-      }
+        value: 'bought',
+      },
     ],
   }),
   computed: {
@@ -147,7 +149,16 @@ export default {
       return false;
     },
   },
-  methods: {},
+  methods: {
+    editProduct(item) {
+      this.$refs.CreateEditproductRef.editProduct(item);
+    },
+    async getProducts() {
+      console.log('1', this.products);
+      this.products = await apiService.getProducts();
+      console.log('2', this.products);
+    },
+  },
   props: {
     data: Array,
   },

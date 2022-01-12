@@ -5,12 +5,10 @@
     </v-row>
     <div v-if="!detailsView && products.length >= 1">
       <strong class="px-4">Products</strong>
-      <product-list :data="products" />
+      <product-list :data="products" :key="reRenderKey" />
       <create-edit-product ref="CreateEditproductRef" @product-updated="getProducts" />
     </div>
-    <div v-else>
-      HAI
-    </div>
+    <div v-else>HAI</div>
   </v-container>
 </template>
 
@@ -29,16 +27,18 @@ export default {
   data: () => ({
     detailsView: false,
     products: [],
+    reRenderKey: 0,
   }),
   computed: {
     ...mapGetters(['isAdmin']),
   },
   methods: {
-    async getProducts(){
+    async getProducts() {
       this.products = await apiService.getProducts();
+      this.reRenderKey++;
     },
-    createNewProduct(){
-      
+    createNewProduct() {
+      this.$refs.CreateEditproductRef.createProduct();
     },
   },
   created() {
