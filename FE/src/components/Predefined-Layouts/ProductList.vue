@@ -5,7 +5,7 @@
     </v-row>
     <h1 v-if="errorMessage">{{ errorMessage }}</h1>
     <v-row no-gutters v-else-if="!isDataTable">
-      <v-col cols="6" v-for="(item, index) in products" :key="index" class="py-2 px-2 text-left" @click="editProduct(item)">
+      <v-col cols="6" md="6" xl="4" v-for="(item, index) in products" :key="index" class="py-2 px-2 text-left" @click="editProduct(item)">
         <!--   -->
         <v-card v-if="isMobile" class="" style="height: 100%">
           <v-row no-gutters>
@@ -93,6 +93,12 @@
       <template v-slot:[`item.discountPrice`]="product">
         {{ $util.dicountCalculator(product.item.price, product.item.discount) }}
       </template>
+      <template v-if="!isMobile" v-slot:[`item.actions`]="{ item }">
+        <v-btn small text @click="showDetails(item)">
+          {{ $t('message.SeeDetails') }}
+          <v-icon right>mdi-arrow-right-circle-outline</v-icon>
+        </v-btn>
+      </template>
     </v-data-table>
     <create-edit-product ref="CreateEditproductRef" @product-updated="getProducts" />
   </v-container>
@@ -139,6 +145,10 @@ export default {
         text: 'Bought',
         value: 'bought',
       },
+      {
+        text: '',
+        value: 'actions',
+      },
     ],
   }),
   computed: {
@@ -154,9 +164,10 @@ export default {
       this.$refs.CreateEditproductRef.editProduct(item);
     },
     async getProducts() {
-      console.log('1', this.products);
       this.products = await apiService.getProducts();
-      console.log('2', this.products);
+    },
+    showDetails() {
+      console.log('Show details');
     },
   },
   props: {
