@@ -5,7 +5,7 @@
     </v-row>
     <div v-if="!detailsView && products.length >= 1">
       <strong class="px-4">Products</strong>
-      <product-list :data="products" :key="reRenderKey" />
+      <product-list :data="products" :key="reRenderKey" @add-to-cart="addToCart" />
       <create-edit-product ref="CreateEditproductRef" @product-updated="getProducts" />
     </div>
     <div v-else>HAI</div>
@@ -36,6 +36,9 @@ export default {
     async getProducts() {
       this.products = await apiService.getProducts();
       this.reRenderKey++;
+    },
+    addToCart(item) {
+      console.log('Item to be added', item);
     },
     createNewProduct() {
       this.$refs.CreateEditproductRef.createProduct();
