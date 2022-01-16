@@ -6,20 +6,20 @@
           <div class="d-flex justify-space-between align-center ml-3">
             <h1 class="text-xl-h3">Webshop</h1>
             <div class="d-flex ml-3">
-              <v-btn x-large tile text depressed :to="{ name: 'frontPage' }" class="black--text text-xl-h5 font-weight-medium" exact-path>Home</v-btn>
-              <v-btn x-large tile text depressed :to="{ name: 'product' }" class="black--text text-xl-h5 font-weight-medium" exact-path>Products</v-btn>
+              <v-btn x-large tile text depressed :to="{ name: 'frontPage' }" class="text-xl-h5 font-weight-medium" exact-path>Home</v-btn>
+              <v-btn x-large tile text depressed :to="{ name: 'product' }" class="text-xl-h5 font-weight-medium" exact-path>Products</v-btn>
             </div>
             <div class="ml-auto d-flex">
               <!-- <div v-if="!cartItems.length"> -->
               <div>
                 <v-btn x-large icon depressed @click="$store.commit('setCartState', true)">
-                  <v-icon :size="iconSizing() == true ? '50px' : '30'" color="black font-weight-bold">mdi-cart-outline</v-icon>
+                  <v-icon :size="iconSizing() == true ? '50px' : '30'" class="secondary--text font-weight-bold">mdi-cart-outline</v-icon>
                 </v-btn>
               </div>
               <v-menu offset-y bottom left>
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn x-large title="Info" icon v-bind="attrs" v-on="on">
-                    <v-icon :size="iconSizing() == true ? '50px' : '30'" :color="user ? 'primary' : 'secondary'">mdi-account-circle</v-icon>
+                    <v-icon :size="iconSizing() == true ? '50px' : '30'" :color="user ? 'button' : 'secondary'">mdi-account-circle</v-icon>
                   </v-btn>
                 </template>
                 <v-card>
@@ -88,8 +88,7 @@ export default {
       return this.$vuetify.breakpoint.xl;
     },
   },
-  created() {
-  },
+  created() {},
 };
 </script>
 
