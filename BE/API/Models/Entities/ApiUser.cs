@@ -17,5 +17,7 @@ namespace WebShop.API.Models.Entities
         public bool Disabled { get; set; }
 
         public List<IdentityRole> Roles { get; set; }
+
+        public UserSettings UserSettings { get; set; }
     }
 }

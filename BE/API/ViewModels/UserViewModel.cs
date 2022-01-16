@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using WebShop.API.Models.Entities;
 
 namespace WebShop.API.ViewModels
 {
@@ -20,5 +21,7 @@ namespace WebShop.API.ViewModels
         public string Email { get; set; }
 
         public List<string> Roles { get; set; }
+
+        public UserSettings UserSettings { get; set; }
     }
 }

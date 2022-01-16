@@ -40,6 +40,7 @@ namespace WebShop.API.Controllers
             IQueryable<ApiUser> request = _context.Users;
 
             var user = await request.ProjectTo<UserViewModel>(_mapper.ConfigurationProvider).ToListAsync();
+
             return new OkObjectResult(user);
         }
 
@@ -97,7 +98,8 @@ namespace WebShop.API.Controllers
                     Email = viewModel.Email,
                     UserName = viewModel.Email,
                     PhoneNumber = viewModel.PhoneNumber,
-                    Name = viewModel.Name
+                    Name = viewModel.Name,
+                    UserSettings = viewModel.UserSettings
                 };
 
                 string userPassword = GeneratePassword();
@@ -129,6 +131,7 @@ namespace WebShop.API.Controllers
                 newUser.UserName = viewModel.Email;
                 newUser.PhoneNumber = viewModel.PhoneNumber;
                 newUser.Name = viewModel.Name;
+                newUser.UserSettings = viewModel.UserSettings;
 
                 _logger.LogInformation($"User {newUser.Email} with id {newUser.Id} updated by {User.GetUserId()}");
 
