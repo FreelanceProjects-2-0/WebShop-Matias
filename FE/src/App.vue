@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app class="primary">
     <v-container class="px-10">
       <NavBar />
       <v-snackbar v-if="snackbar" v-model="snackbar.show" :color="snackbar.color" class="mt-4 pa-4" bottom right transition="fade-transition" :timeout="parseInt(snackbar.timeout)">
