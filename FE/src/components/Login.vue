@@ -51,7 +51,7 @@ export default {
     },
   }),
   computed: {
-    ...mapGetters(['user', 'isManager']),
+    ...mapGetters(['user']),
   },
   methods: {
     validate(e) {
@@ -62,7 +62,7 @@ export default {
           .then(() => {
             this.isLoading = false;
             this.$emit("hide-login");
-            this.$router.push({name:'products'});
+            // this.$router.push({name:'frontPage'});
           })
           .catch(() => {
             this.isLoading = false;

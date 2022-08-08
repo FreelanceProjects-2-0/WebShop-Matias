@@ -9,7 +9,6 @@ export default {
     authToken: (state) => state.user?.token,
     isAuthenticated: (state) => !!state.user,
     isAdmin: (state) => state.user?.roles.includes('admin'),
-    isManager: (state) => state.user?.roles.includes('manager') || state.user?.roles.includes('admin'),
     hasRole: (state) => (role) => state.user?.roles.includes(role),
   },
   actions: {

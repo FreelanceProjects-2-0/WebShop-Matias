@@ -1,5 +1,10 @@
 <template>
   <div>
+    <v-btn icon @click="changeTheme()">
+      <v-icon class="button--text">
+        {{ $vuetify.theme.dark ? 'mdi-white-balance-sunny' : 'mdi-weather-night' }}
+      </v-icon>
+    </v-btn>
     <div v-if="user" class="text-center">
       Logget ind som<br />
       <strong>{{ user.name }}</strong>
@@ -35,12 +40,15 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'user-menu',
   computed: {
-    ...mapGetters(['user', 'isManager']),
+    ...mapGetters(['user']),
   },
   methods: {
     logout() {
       this.$store.dispatch('LOGOUT');
-      this.$router.push({ name: 'home' });
+      this.$router.push({ name: 'frontPage' });
+    },
+    changeTheme() {
+      this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
     },
   },
 };
