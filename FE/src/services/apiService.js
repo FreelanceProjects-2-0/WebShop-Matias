@@ -10,7 +10,7 @@ const service = {
     if (!inOptions?.noAuth && store.getters.user && DateTime.fromISO(store.getters.user.expires) < DateTime.now()) {
       console.log('token expired, refreshing');
 
-      const user = await this.refreshAuth(store.getters.user.refreshToken);
+      const user = await this.refreshWithToken(store.getters.user.refreshToken);
 
       store.commit('updateUser', user);
     }
@@ -96,7 +96,7 @@ const service = {
 
   //Auth
   login(credentials) {
-    return this.post('auth/login', credentials,  {noAuth: true});
+    return this.post('auth/login', credentials, { noAuth: true });
   },
   getUserData(id) {
     return this.get(`user/${id}`);
@@ -107,7 +107,7 @@ const service = {
 
   // Items
   getProducts() {
-    return this.get('shop/shopitem',  {noAuth: true});
+    return this.get('shop/shopitem', { noAuth: true });
   },
   createOrEditShopItem(shopItem) {
     return this.put('shop/shopitem', shopItem);
